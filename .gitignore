@@ -1,3 +1,9 @@
 /target
 **/*.rs.bk
 
+/data/*
+!/data/.gitkeep
+
+/core/server/target/
+**/*.log
+.DS_Store
