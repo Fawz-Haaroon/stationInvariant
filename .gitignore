@@ -1,4 +1,6 @@
 /target
+target/
+**/target/
 **/*.rs.bk
 
 /data/*
@@ -7,3 +9,6 @@
 /core/server/target/
 **/*.log
 .DS_Store
+
+ 
+
