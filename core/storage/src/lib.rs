@@ -1,5 +1,9 @@
-//! Storage layer.
-//!
-//! Owns durability guarantees.
-//! Everything above this layer assumes writes here do not lie.
+use std::io;
 
+pub trait Storage {
+    /// Persist bytes durably.
+    /// If this returns Ok, data must survive crash.
+    fn append(&mut self, bytes: &[u8]) -> io::Result<()>;
+}
+
+pub mod wal;
