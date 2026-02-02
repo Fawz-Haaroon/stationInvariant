@@ -1,15 +1,14 @@
-impl Frame {
-    pub fn validate(&self) {
-        // payload length is implicit in Vec, but protocol users
-        // should never construct empty control frames by accident
-        match self.frame_type {
-            FrameType::Publish | FrameType::Message => {
-                assert!(
-                    !self.payload.is_empty(),
-                    "message frames must carry a payload"
-                );
-            }
-            _ => {}
-        }
+pub struct Record {
+    pub offset: u64,
+    pub payload: Vec<u8>,
+}
+
+impl Record {
+    pub fn encode(&self) -> Vec<u8> {
+        let mut buf = Vec::with_capacity(8 + 4 + self.payload.len());
+        buf.extend_from_slice(&self.offset.to_le_bytes());
+        buf.extend_from_slice(&(self.payload.len() as u32).to_le_bytes());
+        buf.extend_from_slice(&self.payload);
+        buf
     }
 }
