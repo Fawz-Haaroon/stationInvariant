@@ -1,9 +1,9 @@
-use std::fs::OpenOptions;
+use std::fs::{File, OpenOptions};
 use std::io::{self, Write};
 use std::path::Path;
 
 pub struct WriteAheadLog {
-    file: std::fs::File,
+    file: File,
 }
 
 impl WriteAheadLog {
@@ -11,6 +11,7 @@ impl WriteAheadLog {
         let file = OpenOptions::new()
             .create(true)
             .append(true)
+            .read(true)
             .open(path)?;
 
         Ok(Self { file })
@@ -18,8 +19,13 @@ impl WriteAheadLog {
 
     pub fn append(&mut self, bytes: &[u8]) -> io::Result<()> {
         self.file.write_all(bytes)?;
-        self.file.flush()?; // durability boundary
+        self.file.flush(); // explicit durability boundary
         Ok(())
     }
-}
 
+    /// Expose the underlying file for replay / recovery.
+    /// Read-only usage is expected.
+    pub fn file(&self) -> &File {
+        &self.file
+    }
+}
