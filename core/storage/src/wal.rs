@@ -19,7 +19,7 @@ impl WriteAheadLog {
 
     pub fn append(&mut self, bytes: &[u8]) -> io::Result<()> {
         self.file.write_all(bytes)?;
-        self.file.flush(); // explicit durability boundary
+        self.file.flush()?;
         Ok(())
     }
 

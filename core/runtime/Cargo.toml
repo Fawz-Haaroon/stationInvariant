@@ -1,0 +1,10 @@
+[package]
+name = "core-runtime"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+core-engine   = { path = "../engine" }
+core-protocol = { path = "../protocol" }
+core-storage  = { path = "../storage" }
+
