@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "core/engine",
+    "core/protocol",
+    "core/storage",
+    "core/runtime",
+]
+
+resolver = "2"
