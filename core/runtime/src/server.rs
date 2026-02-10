@@ -1,5 +1,6 @@
 use std::io;
 use std::net::TcpStream;
+use std::io::Write;
 
 use core_engine::ledger::Ledger;
 use core_protocol::frame::{Frame, FrameType};
