@@ -2,7 +2,7 @@ use std::io::Read;
 use std::net::TcpStream;
 
 use crate::Server;
-use core_protocol::frame::{Frame, FrameType};
+use core_protocol::frame::Frame;
 
 pub fn handle(mut stream: TcpStream, server: &mut Server) -> std::io::Result<()> {
     let mut buf = Vec::new();
